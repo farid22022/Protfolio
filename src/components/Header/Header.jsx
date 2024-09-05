@@ -5,11 +5,11 @@ import github from "./../../../public/SocialIcon/github.png"
 const Header = () => {
 
     const navOptions = <>
-        <li><Link className="text-xl">Home</Link></li>
-        <li><Link className="text-xl">Development Stack</Link></li>
-        <li><Link className="text-xl">Projects</Link></li>
-        <li><Link className="text-xl">Contact Me</Link></li>
-        <li><Link className="text-xl">About Me</Link></li>
+        <li><Link className="text-xl font-semibold">Home</Link></li>
+        <li><Link className="text-xl font-semibold">Development Stack</Link></li>
+        <li><Link className="text-xl font-semibold">Projects</Link></li>
+        <li><Link className="text-xl font-semibold">Contact Me</Link></li>
+        <li><Link className="text-xl font-semibold">About Me</Link></li>
     </>
 
     const linkOptions = <div className="flex space-x-5">
@@ -18,7 +18,7 @@ const Header = () => {
     </div>
 
     return (
-        <div className="navbar bg-blue-800 p-5">
+        <div className="navbar bg-slate-800 p-5">
             <div className="navbar-start">
                 <div className="dropdown">
                 <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
