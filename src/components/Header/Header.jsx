@@ -5,11 +5,11 @@ import github from "./../../../public/SocialIcon/github.png"
 const Header = () => {
 
     const navOptions = <>
-        <li><Link to="/" className="text-xl font-semibold">Home</Link></li>
-        <li><Link to="/techStack" className="text-xl font-semibold">Development Stack</Link></li>
-        <li><Link to="/" className="text-xl font-semibold">Projects</Link></li>
-        <li><Link to="/" className="text-xl font-semibold">Contact Me</Link></li>
-        <li><Link to="/" className="text-xl font-semibold">About Me</Link></li>
+        <li><Link to="/" className="  text-white">Home</Link></li>
+        <li><Link to="/techStack" className="  text-white">Development Stack</Link></li>
+        <li><Link to="/projects" className="  text-white">Projects</Link></li>
+        <li><Link to="/" className="  text-white">Contact Me</Link></li>
+        <li><Link to="/" className="  text-white">About Me</Link></li>
     </>
 
     const linkOptions = <div className="flex space-x-5">
