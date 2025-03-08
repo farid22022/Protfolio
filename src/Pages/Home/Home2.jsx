@@ -1,86 +1,137 @@
-
+import { Canvas, useFrame } from '@react-three/fiber'
+import { ScrollControls, useScroll, useGLTF } from '@react-three/drei'
+import { useRef, Suspense } from 'react'
 import photo from "./../../../public/PersonalPhoto/Farid.png"
-import { useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
-import { FiGithub, FiLinkedin, FiMail, FiCode, FiServer, FiBook, FiCpu, FiCloud, FiDatabase } from 'react-icons/fi';
-import Particles from 'react-tsparticles';
-import { loadFull } from "tsparticles";
+import { useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { Typewriter } from 'react-simple-typewriter'
+import { FiGithub, FiLinkedin, FiMail, FiCode, FiServer, FiBook, FiCpu, FiCloud, FiDatabase } from 'react-icons/fi'
+import Particles from 'react-tsparticles'
+import { loadFull } from "tsparticles"
+
+// 3D Model Component
+function Scene({ url }) {
+  const { scene } = useGLTF(url)
+  const scroll = useScroll()
+  const modelRef = useRef()
+
+  useFrame(() => {
+    const offset = scroll.offset
+    // Scroll-based animations
+    modelRef.current.scale.set(
+      1 + offset * 1.2,
+      1 + offset * 1.2,
+      1 + offset * 1.2
+    )
+    modelRef.current.rotation.y = offset * Math.PI * 2
+    modelRef.current.position.x = Math.sin(offset * Math.PI) * 3
+    modelRef.current.position.y = Math.cos(offset * Math.PI) * 2
+  })
+
+  return <primitive ref={modelRef} object={scene} position={[0, -1.5, 0]} />
+}
 
 const Home = () => {
-    const [showAllProjects, setShowAllProjects] = useState(false);
-    const { ref: skillsRef, inView: skillsInView } = useInView({
-        triggerOnce: true,
-        threshold: 0.1
-    });
+  const [showAllProjects, setShowAllProjects] = useState(false)
+  const { ref: skillsRef, inView: skillsInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  })
 
-    const projects = [
-        {
-            title: "Contest Hub",
-            description: "Platform with integrated payment system for managing online contests",
-            tech: ["React", "Node.js", "MongoDB", "Stripe"],
-            link: "#"
-        },
-        {
-            title: "KU-Sports",
-            description: "University sports management system with tournament tracking",
-            tech: ["Django", "PostgreSQL", "React"],
-            link: "#"
-        },
-        {
-            title: "AI Resume Analyzer",
-            description: "Smart resume evaluation tool with job recommendations",
-            tech: ["Python", "NLP", "Flask", "AWS"],
-            link: "#"
-        },
-        {
-            title: "Registration Consultation Bot",
-            description: "AI-powered course registration optimizer with OCR",
-            tech: ["Python", "OCR", "ChatGPT API", "FastAPI"],
-            link: "#"
-        },
-        {
-            title: "Personal Chatbot Assistant",
-            description: "AI assistant with face detection and conversational capabilities",
-            tech: ["Python", "OpenCV", "TensorFlow", "Flask"],
-            link: "#"
-        },
-        {
-            title: "E-Commerce Analytics Dashboard",
-            description: "Real-time business intelligence dashboard for online stores",
-            tech: ["React", "Node.js", "MongoDB", "Chart.js"],
-            link: "#"
-        }
-    ];
+  // ... keep all your existing project, skill, and particle data ...
 
-    const skills = [
-        { name: "MERN Stack", icon: <FiCode />, level: 95 },
-        { name: "Python", icon: <FiServer />, level: 90 },
-        { name: "AWS", icon: <FiCloud />, level: 85 },
-        { name: "SQL/NoSQL", icon: <FiDatabase />, level: 90 },
-        // { name: "Microcontrollers", icon: <FiCpu />, level: 80 }
-    ];
+  const projects = [
+    {
+        title: "Contest Hub",
+        description: "Platform with integrated payment system for managing online contests",
+        tech: ["React", "Node.js", "MongoDB", "Stripe"],
+        link: "#"
+    },
+    {
+        title: "KU-Sports",
+        description: "University sports management system with tournament tracking",
+        tech: ["Django", "PostgreSQL", "React"],
+        link: "#"
+    },
+    {
+        title: "AI Resume Analyzer",
+        description: "Smart resume evaluation tool with job recommendations",
+        tech: ["Python", "NLP", "Flask", "AWS"],
+        link: "#"
+    },
+    {
+        title: "Registration Consultation Bot",
+        description: "AI-powered course registration optimizer with OCR",
+        tech: ["Python", "OCR", "ChatGPT API", "FastAPI"],
+        link: "#"
+    },
+    {
+        title: "Personal Chatbot Assistant",
+        description: "AI assistant with face detection and conversational capabilities",
+        tech: ["Python", "OpenCV", "TensorFlow", "Flask"],
+        link: "#"
+    },
+    {
+        title: "E-Commerce Analytics Dashboard",
+        description: "Real-time business intelligence dashboard for online stores",
+        tech: ["React", "Node.js", "MongoDB", "Chart.js"],
+        link: "#"
+    }
+];
 
-    const particlesInit = async (engine) => await loadFull(engine);
+const skills = [
+    { name: "MERN Stack", icon: <FiCode />, level: 95 },
+    { name: "Python", icon: <FiServer />, level: 90 },
+    { name: "AWS", icon: <FiCloud />, level: 85 },
+    { name: "SQL/NoSQL", icon: <FiDatabase />, level: 90 },
+    // { name: "Microcontrollers", icon: <FiCpu />, level: 80 }
+];
 
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-navy-900 to-navy-800 relative overflow-hidden">
-            <div className="absolute inset-0 z-0">
-                <Particles
-                    init={particlesInit}
-                    options={{
-                        particles: {
-                            number: { value: 50 },
-                            color: { value: "#34d399" },
-                            move: { enable: true, speed: 1.5 }
-                        }
-                    }}
-                />
-            </div>
+const particlesInit = async (engine) => await loadFull(engine);
 
-            <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 relative z-10 py-20">
-                {/* Introduction Section */}
-                <div className="grid lg:grid-cols-3 gap-12 mb-24">
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-navy-900 to-navy-800 relative overflow-hidden">
+      {/* 3D Model Background */}
+      <div className="absolute inset-0 z-0">
+        <Canvas
+          style={{
+            position: 'fixed',
+            pointerEvents: 'none',
+          }}
+          camera={{ position: [0, 0, 8], fov: 45 }}
+        >
+          <ambientLight intensity={0.75} />
+          <pointLight position={[10, 10, 10]} intensity={1.2} />
+          <color attach="background" args={['#0f172a']} />
+          <ScrollControls pages={4}>
+            <Suspense fallback={null}>
+              <Scene url="/model.glb" />
+            </Suspense>
+          </ScrollControls>
+        </Canvas>
+      </div>
+
+      {/* Particles Overlay */}
+      <div className="absolute inset-0 z-10">
+        <Particles
+          init={particlesInit}
+          options={{
+            particles: {
+              number: { value: 50 },
+              color: { value: "#34d399" },
+              move: { enable: true, speed: 1.5 },
+              opacity: { value: 0.3 }
+            }
+          }}
+        />
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 relative z-20 py-20">
+        
+        {/* Keep all your existing sections exactly as they were */}
+        {/* Introduction Section */}
+        <div className="grid lg:grid-cols-3 gap-12 mb-24">
                     <motion.div 
                         className="lg:col-span-2"
                         initial={{ opacity: 0, x: -50 }}
@@ -277,8 +328,14 @@ const Home = () => {
                     </motion.div>
                 </div>
 
-                {/* Technical Expertise Section */}
-                <motion.div 
+        {/* Technical Expertise Section */}
+        <motion.div 
+          className="grid md:grid-cols-2 gap-8 mb-24"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          ref={skillsRef}
+        >
+          <motion.div 
                     className="grid md:grid-cols-2 gap-8 mb-24"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -473,10 +530,15 @@ const Home = () => {
 
                     </div>
                 </motion.div>
+        </motion.div>
 
-                {/* Research Interests */}
-               
-                <motion.div 
+        {/* Research Interests Section */}
+        <motion.div 
+          className="bg-navy-700 p-12 rounded-3xl mb-24 relative overflow-hidden"
+          initial={{ scale: 0.95 }}
+          whileInView={{ scale: 1 }}
+        >
+          <motion.div 
                     className="bg-navy-700 p-12 rounded-3xl mb-24 relative overflow-hidden"
                     initial={{ scale: 0.95 }}
                     whileInView={{ scale: 1 }}
@@ -605,9 +667,15 @@ const Home = () => {
                         }}
                     />
                 </motion.div>
+        </motion.div>
 
-                {/* Career Philosophy */}
-                <motion.div 
+        {/* Career Philosophy Section */}
+        <motion.div 
+          className="text-center max-w-5xl h-auto mx-auto mb-24 relative overflow-hidden"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+        >
+          <motion.div 
                     className="text-center max-w-5xl h-auto mx-auto mb-24 relative overflow-hidden"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -727,9 +795,10 @@ const Home = () => {
                         }}
                     />
                 </motion.div>
-            </div>
-        </div>
-    );
-};
+        </motion.div>
+      </div>
+    </div>
+  )
+}
 
-export default Home;
+export default Home

@@ -1,91 +1,128 @@
-import html from "./../../../public/TechLogo/html-1.png";
-import atom from "./../../../public/TechLogo/react-1.png";
-import css from "./../../../public/TechLogo/css3-1.png";
-import express from "./../../../public/TechLogo/express-js-1.png";
-import firebase from "./../../../public/TechLogo/firebase-1.png";
-import JavaScript from "./../../../public/TechLogo/javascript-1.png";
-import jwtToken from "./../../../public/TechLogo/jwt-1.png"
-import mongodb from "./../../../public/TechLogo/mongodb-1.png";
-import nodejs from "./../../../public/TechLogo/nodejs-1.png";
-import react_dom from "./../../../public/TechLogo//router-1.png";
-import tailwind from "./../../../public/TechLogo/tailwind-1.png";
-import github from "./../../../public/SocialIcon/github.png"
-import linkedin from "./../../../public/SocialIcon/linkedin.png"
-import daisyUI from "./../../../public/TechLogo/daisyUI.png";
-import { Link } from "react-router-dom";
 
+import { motion } from "framer-motion";
+import Technologies from "../../components/Technologies/Technologies";
+import Typewriter from 'typewriter-effect';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.3,
+      when: "beforeChildren",
+      staggerChildren: 0.2
+    }
+  }
+};
 
+const childVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 }
+};
 
 const TechStack = () => {
-    return (
-        <div className="text-center">
-            <div className="text-center text-2xl font-semibold">
-                <h1 className="p-5">My Tech Stack</h1>
-            </div>
-            <div className="p-3 text-center">
-                <h2>Technologies I have been working with recently.</h2>
-            </div>
-            <div className="translate-x-96 p-5 text-center items-center justify-center">
-                <div className="flex space-x-8 w-1/2 h-1/4 p-5">
-                    <div className="w-1/12 h-1/6">
-                        <img className="" src={html}/>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={css}></img>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={daisyUI}></img>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={JavaScript}/>
-                    </div>
-                    <div className=" w-1/12 h-1/4">
-                        <img className="" src={tailwind}/>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={atom}/>
-                    </div>
-                </div>
-                <div className="flex space-x-8 w-1/2 h-1/4">
-                    <div className="w-1/12 h-1/6">
-                        <img className="" src={react_dom}/>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={firebase}></img>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={nodejs}/>
-                    </div>
-                    <div className=" w-1/12 h-1/4">
-                        <img className="" src={express}/>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={mongodb}/>
-                    </div>
-                    <div className="w-1/12 h-1/4">
-                        <img className="" src={jwtToken}/>
-                    </div>
-                </div>
-            </div>
-            <div className="pt-16">
-                <hr/>
-            </div>
-            <div className="flex space-x-5 text-center justify-center">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/">About Me</Link></li>
-                <li><Link to="/">Contact Me</Link></li>
-            </div>
+  return (
+    <motion.div
+      className="relative pt-32 px-4 md:px-8 lg:px-16 min-h-screen overflow-hidden"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes grid-animation {
+          0% { background-position: 0 0; }
+          100% { background-position: 50px 50px; }
+        }
+      `}</style>
 
-            <div className="flex space-x-5 text-center justify-center mt-12">
-                <li><Link><img className="w-2/3" src={linkedin}/></Link></li>
-                <li><Link><img className="w-2/3" src={github}/></Link></li>
-            </div>
-            <div className="text-center mt-12">
-                <h3>Copyright © 2024 - All right reserved by Me</h3>
-            </div>
-        </div>
-    );
+      {/* Animated Green Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Floating Gradient Blobs */}
+        <motion.div
+          className="absolute w-[800px] h-[800px] -top-48 -left-48 bg-gradient-to-r from-emerald-400/20 to-teal-300/30 rounded-full blur-3xl"
+          animate={{
+            rotate: [0, 360],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        
+        <motion.div
+          className="absolute w-[700px] h-[700px] -bottom-32 -right-32 bg-gradient-to-br from-jade-300/20 to-lime-200/25 rounded-full blur-3xl"
+          animate={{
+            rotate: [360, 0],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+
+        {/* Animated Grid */}
+        <div 
+          className="absolute inset-0 opacity-15"
+          style={{
+            backgroundSize: "50px 50px",
+            backgroundImage: `
+              linear-gradient(to right, rgba(52, 211, 153, 0.05) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(52, 211, 153, 0.05) 1px, transparent 1px)
+            `,
+            animation: "grid-animation 20s linear infinite"
+          }}
+        />
+        
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-emerald-400/30 rounded-full animate-[float_8s_ease-in-out_infinite]"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              opacity: 0.3
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 text-center mb-16">
+        <motion.div variants={childVariants}>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
+            Tech Stack
+          </h1>
+        </motion.div>
+
+        <motion.div 
+          className="text-xl md:text-2xl text-emerald-100/80 mb-12"
+          variants={childVariants}
+        >
+          <Typewriter
+            options={{
+              strings: ['Sustainable Technologies', 'Green Development Tools', 'Eco-Conscious Stack'],
+              autoStart: true,
+              loop: true,
+              deleteSpeed: 50,
+              cursor: "_"
+            }}
+          />
+        </motion.div>
+
+        <Technologies />
+      </div>
+    </motion.div>
+  );
 };
 
 export default TechStack;
